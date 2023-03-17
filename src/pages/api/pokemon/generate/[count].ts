@@ -60,13 +60,20 @@ async function getPokemon(id: number) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Array<PokemonData> | null>) {
-    const countParam = req.query.count
-    if (!countParam || typeof countParam != 'string' || Number.parseInt(countParam) > 5) {
-        res.status(400).send(null)
-        return
-    }
-    const selectedIds = getTwoRandomIds();
-    const pokemonData = await Promise.all(selectedIds.map(getPokemon))
+    try {
+        const countParam = req.query.count
 
-    res.status(200).json(pokemonData)
+        if (!countParam || typeof countParam != 'string' || Number.parseInt(countParam) > 5) {
+            res.status(400).send(null)
+            return
+        }
+        const selectedIds = getTwoRandomIds();
+        const pokemonData = await Promise.all(selectedIds.map(getPokemon))
+        res.status(200).json(pokemonData)
+
+    } catch (e) {
+        res.status(200).send(null)
+        console.log(e)
+    }
+
 }
