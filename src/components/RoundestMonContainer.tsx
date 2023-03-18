@@ -31,7 +31,6 @@ const RoundestMonContainer = () => {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            Which Pokemon is more round?
             <div className="h-10"></div>
             <VotingTable>
                 <VotablePokemon pokemonData={firstPokemon} onClick={onVote}/>

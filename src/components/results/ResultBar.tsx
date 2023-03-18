@@ -6,7 +6,6 @@ const ResultBar = ({result}: {result: Result}) => {
     const roundnessPercent = Math.round(result.roundness * 100);
     const closestColor = Math.round(((result.roundness * 500) / 100)) * 100;
 
-    console.log(closestColor)
 
     return (
         <div className="relative border border-gray-500 w-64 px-5 py-3 rounded flex justify-between">
