@@ -35,6 +35,8 @@ const toPokemonData = (pokemon: PokenodePokemon | Pokemon) => {
 }
 
 async function getPokemon(id: number) {
+    console.log('connection uri ' + process.env.MONGODB_URI)
+    
     const pokemonFromDb = await prisma.pokemon.findUnique({
         where: {
             pokeId: id
