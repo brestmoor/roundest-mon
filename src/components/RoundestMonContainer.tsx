@@ -7,24 +7,24 @@ const RoundestMonContainer = () => {
     const [firstPokemon, setFirstPokemon] = useState<PokemonData>({id: 0, name: ''})
     const [secondPokemon, setSecondPokemon] = useState<PokemonData>({id: 0, name: ''})
 
-    const loadPokemon = useCallback(async () => {
-        const [first, second] = await PokemonApi.getNewPokemon();
-        setFirstPokemon(first)
-        setSecondPokemon(second)
-    }, [])
-
     useEffect(() => {
+        const loadPokemon = async () => {
+            const [first, second] = await PokemonApi.getNewPokemon();
+            setFirstPokemon(first)
+            setSecondPokemon(second)
+        }
         void loadPokemon()
-    }, [loadPokemon])
-
+    }, [])
 
     const onVote = (id: number) => {
         const handleVote = async () => {
-            await Promise.all([
+            const [[first, second]] = await Promise.all([
+                PokemonApi.getNewPokemon(),
                 PokemonApi.voteForPokemon(id),
-                PokemonApi.downvoteForPokemon([firstPokemon, secondPokemon].find(p => p.id != id)!.id)
+                PokemonApi.downvoteForPokemon([firstPokemon, secondPokemon].find(p => p.id != id)!.id),
             ])
-            await loadPokemon()
+            setFirstPokemon(first)
+            setSecondPokemon(second)
         }
         void handleVote()
     }
