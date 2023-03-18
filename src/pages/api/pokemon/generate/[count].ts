@@ -41,8 +41,12 @@ async function getPokemon(id: number) {
         }
     });
     if (pokemonFromDb) {
+        console.log("found in DB " + Date())
+
         return toPokemonData(pokemonFromDb);
     }
+    console.log("did not " + Date())
+
     const apiPokemon = await client.getPokemonById(id);
     const newPokemon = await prisma.pokemon.create({
         select: {
@@ -61,6 +65,7 @@ async function getPokemon(id: number) {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Array<PokemonData> | null>) {
     try {
+        console.log("i am in" + Date())
         const countParam = req.query.count
 
         if (!countParam || typeof countParam != 'string' || Number.parseInt(countParam) > 5) {
@@ -68,6 +73,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             return
         }
         const selectedIds = getTwoRandomIds();
+        console.log("got 2 random " + Date())
+
         const pokemonData = await Promise.all(selectedIds.map(getPokemon))
         res.status(200).json(pokemonData)
 
