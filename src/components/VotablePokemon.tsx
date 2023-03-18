@@ -18,7 +18,7 @@ const VotablePokemon = ({pokemonData, onClick}: {pokemonData: PokemonData, onCli
     }
 
     return (
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-4 xl:gap-12">
             <PokemonImg pokemonData={pokemonData}/>
             <VoteButton onClick={onVote}/>
         </div>

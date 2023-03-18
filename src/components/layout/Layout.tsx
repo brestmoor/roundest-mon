@@ -35,7 +35,7 @@ const Layout = ({children}: { children: ReactElement }) => {
             <div className="flex flex-col h-screen w-screen justify-start items-center p-5">
                 <div className="p-2 xl:p-10"/>
                 <NavBar/>
-                <div className="h-10"/>
+                <div className="h-3 xl:h-3"/>
                 <div className="max-w-5xl">
                     {children}
                 </div>
